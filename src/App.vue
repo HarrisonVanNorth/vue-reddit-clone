@@ -1,28 +1,44 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<!-- v-app is a standard wrapper in vuetify and MUST wrap all my vuetify components -->
+  <v-app>
+    <!-- v-toolbar acts as my header component -->
+    <v-toolbar app>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Vuetify</span>
+        <span class="font-weight-light">REDDIT CLONE</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+    <!-- my app components will all be wraped within the v-convent component -->
+    <v-content>
+      <v-container>
+        <v-layout>
+          <!-- Insert Filter Component -->
+        </v-layout>
+        <v-layout>
+          <!-- Insert New Post Form -->
+        </v-layout>
+        <v-layout>
+          <!-- Insert PostListComponent -->
+          <post-list />
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PostList from './components/PostList'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld
+    'post-list': PostList
+  },
+  data () {
+    return {
+      //
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
