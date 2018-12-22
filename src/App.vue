@@ -12,16 +12,30 @@
     <!-- my app components will all be wraped within the v-convent component -->
     <v-content>
       <v-container>
-        <v-layout>
-          <!-- Insert Filter Component -->
-        </v-layout>
-        <v-layout>
+        <v-flex xs8>
+          <v-layout>
+            <v-flex xs6>
+              <!-- Insert Filter Component -->
+              <filter-posts />
+            </v-flex>
+            <v-flex xs6>
+              <v-btn outline fab color="error" @click="composing = !composing">
+                <v-icon>edit</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-layout>
           <!-- Insert New Post Form -->
-        </v-layout>
-        <v-layout>
-          <!-- Insert PostListComponent -->
-          <post-list />
-        </v-layout>
+          <v-layout v-if="composing">
+            <v-flex>
+              <add-post-form />
+            </v-flex>
+          </v-layout>
+          <!-- PostList Component -->
+          <v-layout>
+            <!-- Insert PostListComponent -->
+            <post-list />
+          </v-layout>
+        </v-flex>
       </v-container>
     </v-content>
   </v-app>
@@ -29,15 +43,19 @@
 
 <script>
 import PostList from './components/PostList'
+import FilterPosts from './components/FilterPosts'
+import AddPostForm from './components/AddPostForm'
 
 export default {
   name: 'App',
   components: {
-    'post-list': PostList
+    'post-list': PostList,
+    'filter-posts': FilterPosts,
+    'add-post-form': AddPostForm,
   },
   data () {
     return {
-      //
+      composing: false
     }
   }
 }
