@@ -3,12 +3,12 @@
     <!-- Comment Hi -->
     <span>{{ post.createdAt | moment("from", "now") }}</span> | <v-icon>comment</v-icon> {{ comments.length }} comments
     <!-- New Comment Form -->
-    <v-form>
+    <v-form @submit.prevent="addComment">
       <v-text-field
         v-model="comment"
         label="Add Comment"
       ></v-text-field>
-      <v-btn>Submit</v-btn>
+      <v-btn type="submit">Submit</v-btn>
     </v-form>
     <v-card v-for="comment in comments" :key="comment.id" >
       <v-flex>
@@ -38,6 +38,14 @@ export default {
         }
       }
       return filtered;
+    }
+  },
+  methods: {
+    addComment: function() {
+      this.$store.dispatch('putComment', {
+        'content': this.comment,
+        'post_id': this.post.id
+      })
     }
   }
 }
