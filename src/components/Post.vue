@@ -6,7 +6,10 @@
           :src="post.img_url"
         ></v-img>
         <v-card-title>
-          {{post.title}}
+          {{post.title}} |
+          <v-icon @click="upvote" >arrow_upward</v-icon>
+          {{post.votes}}
+          <v-icon @click="downvote" v-if="post.votes > 0" >arrow_downward</v-icon>
         </v-card-title>
         <v-card-text>
           {{post.content}}
@@ -26,5 +29,19 @@ export default {
     'comment-list': CommentList
   },
   props: ['post'],
+  methods: {
+    upvote: function() {
+      this.$store.dispatch('putVote', {
+        post_id: this.post.id,
+        direction: 'increase'
+      })
+    },
+    downvote: function() {
+      this.$store.dispatch('putVote', {
+        post_id: this.post.id,
+        direction: 'decrease'
+      })
+    }
+  }
 }
 </script>

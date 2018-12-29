@@ -70,6 +70,18 @@ export const store = new Vuex.Store({
 					comment.id
 				]
 			}
+		},
+		vote(state, payload) {
+			state.posts = {
+				...state.posts,
+				byId: {
+					...state.posts.byId,
+					[payload.id]: {
+						...state.posts.byId[payload.id],
+						votes: payload.votes
+					}
+				}
+			}
 		}
 	},
 	actions: {
@@ -107,6 +119,15 @@ export const store = new Vuex.Store({
 				})
 			} catch(error) {
 				throw new Error(error);
+			}
+		},
+		async putVote(context, payload) {
+			const { direction, post_id } = payload;
+			try {
+				const res = await axios.get(`http://localhost:8082/api/posts/votes/${direction}/${post_id}`)
+				context.commit('vote', res.data)
+			} catch(error) {
+				throw new Error(error)
 			}
 		}
 	},
