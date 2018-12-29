@@ -42,6 +42,20 @@ export const store = new Vuex.Store({
 				...normalizeData(state.comments, payload.comments),
 				isFetching: false,
 			}
+		},
+		addPost(state, payload) {
+			const { post } = payload;
+			state.posts = {
+				...state.posts,
+				byId: {
+					...state.posts.byId,
+					[post.id]: post
+				},
+				allIds: [
+					...state.posts.allIds,
+					post.id
+				]
+			}
 		}
 	},
 	actions: {
@@ -51,6 +65,16 @@ export const store = new Vuex.Store({
 				context.commit('receivePosts', {posts: res.data})
 			} catch (error) {
 				context.commit('requestPosts')
+			}
+		},
+		async putPost(context, post) {
+			try {
+				const res = await axios.post('http://localhost:8082/api/posts', post);
+				context.commit('addPost',{
+					post: res.data
+				})
+			} catch (error) {
+				throw new Error(error);
 			}
 		},
 		async getComments(context) {

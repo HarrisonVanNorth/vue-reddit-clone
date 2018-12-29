@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form v-on:submit.prevent="addPost" >
     <!-- Title -->
     <v-text-field
       v-model="title"
@@ -21,7 +21,7 @@
       label="Image URL"
     ></v-text-field>
     <!-- Submit -->
-    <v-btn>Submit</v-btn>
+    <v-btn type="submit">Submit</v-btn>
   </v-form>
 </template>
 
@@ -33,6 +33,16 @@ export default {
       'body': '',
       'author': '',
       'img_url': ''
+    }
+  },
+  methods: {
+    addPost: function() {
+      this.$store.dispatch('putPost', {
+        'title': this.title,
+        'body': this.body,
+        'author': this.author,
+        'img_url': this.img_url
+      })
     }
   }
 }
