@@ -9,33 +9,38 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
-    <!-- my app components will all be wraped within the v-convent component -->
+    <!-- my app components will all be wraped within the v-content component -->
     <v-content>
-      <v-container>
-        <v-flex xs8>
-          <v-layout>
-            <v-flex xs6>
-              <!-- Insert Filter Component -->
-              <filter-posts />
-            </v-flex>
-            <v-flex xs6>
-              <v-btn outline fab color="error" @click="composing = !composing">
-                <v-icon>edit</v-icon>
-              </v-btn>
-            </v-flex>
-          </v-layout>
-          <!-- Insert New Post Form -->
-          <v-layout v-if="composing">
-            <v-flex>
-              <add-post-form />
-            </v-flex>
-          </v-layout>
-          <!-- PostList Component -->
-          <v-layout>
-            <!-- Insert PostListComponent -->
-            <post-list />
-          </v-layout>
-        </v-flex>
+      <v-container grid-list-lg>
+        <v-layout fill-height justify-center>
+          <v-flex xs8>
+            <v-layout>
+              <v-flex xs6>
+                <!-- Insert Filter Component -->
+                <filter-posts />
+              </v-flex>
+              <v-spacer></v-spacer>
+              <v-flex xs1 justify-end>
+                <v-btn outline fab color="error" @click="composing = !composing">
+                  <v-icon>edit</v-icon>
+                </v-btn>
+              </v-flex>
+            </v-layout>
+            <!-- Insert New Post Form -->
+            <v-layout justify-center v-if="composing">
+              <v-flex xs10>
+                <add-post-form />
+              </v-flex>
+            </v-layout>
+            <!-- PostList Component -->
+            <v-layout justify-center>
+              <!-- Insert PostListComponent -->
+              <v-flex xs12>
+                <post-list />
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-content>
   </v-app>
@@ -53,7 +58,7 @@ export default {
     'filter-posts': FilterPosts,
     'add-post-form': AddPostForm,
   },
-  data () {
+  data() {
     return {
       composing: false
     }

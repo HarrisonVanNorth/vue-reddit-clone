@@ -11,18 +11,20 @@
         <v-card-text>
           {{post.content}}
         </v-card-text>
+        <hr />
+        <comment-list :post="post" />
       </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import CommentList from './CommentList'
+
 export default {
+  components: {
+    'comment-list': CommentList
+  },
   props: ['post'],
-  computed: {
-    comments() {
-      
-    }
-  }
 }
 </script>
